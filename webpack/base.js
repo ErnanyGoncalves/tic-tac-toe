@@ -10,7 +10,7 @@ module.exports = {
     rules: [
       {
         test: /\.js$/,
-        exclude: /node_modules/,
+        exclude: /node_modules\/(?!phaser-webpack-loader)/,
         use: {
           loader: "babel-loader"
         }
@@ -22,6 +22,10 @@ module.exports = {
       {
         test: /\.(gif|png|jpe?g|svg|xml)$/i,
         use: "file-loader"
+      },
+      {
+        test: /\.(ogg|mp3)$/,
+        use: ["file-loader"]
       }
     ]
   },
@@ -36,5 +40,10 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: "./index.html"
     })
-  ]
+  ],
+  resolve: {
+    alias: {
+      assets: path.join(__dirname, '../src/assets'),
+    },
+  },
 };

@@ -1,22 +1,16 @@
 import Phaser from "phaser";
-import Menu from "./scenes/1_Menu";
-import Game from "./scenes/2_Game";
-import Endgame from "./scenes/3_Endgame"; 
+
+import Menu from "./scenes/Menu";
+import TTT from "./scenes/TTT";
+import Endgame from "./scenes/Endgame"; 
 
 
 const config = {
+  type: Phaser.AUTO,
   width:600,
   height:750,
-  background:"black",
-  scenes:[Menu,Game,Endgame]
+  backgroundColor:"0x000000",
+  scenes:[Menu,TTT,Endgame]
 };
 
 const game = new Phaser.Game(config);
-
-function preload() {
-
-}
-
-function create() {
-
-}
