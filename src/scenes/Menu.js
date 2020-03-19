@@ -19,38 +19,21 @@ export default class Menu extends Phaser.Scene {
 
         this.loader.load().then(() => {
 
-            this.add.text(20, 20, "Menu!!!", { font: "25px 'Fredoka One'", fill: "red" });
+            this.add.text(150, 250, "Jogo da Velha!", { font: "50px 'Fredoka One'", fill: "red" });
+            this.add.text(150, 350, "Escolha o modo de jogo:", { font: "30px 'Titan One'", fill: "blue" });
 
-            this.ttt_x = this.add.sprite(200,200,"x");
-
-            // https://photonstorm.github.io/phaser3-docs/Phaser.Types.Animations.html#.GenerateFrameNames__anchor
-            // https://phaser.discourse.group/t/texture-atlas-anim-issue-with-generateframenumbers/1264/2   
-            // Acredito que generateFrameNames pega pelo json os "nomes dos arquivos" que compõe o spridesheet e gera os frames
-
-            this.anims.create({
-                key:"x_clicked",
-                frames: this.anims.generateFrameNames("x"),
-                frameRate:20,
-                repeat:0
-            });
-
-            this.ttt_x.play("x_clicked");
-
-            this.ttt_o = this.add.sprite(300,300,"o");
-
-            this.anims.create({
-                key:"o_clicked",
-                frames: this.anims.generateFrameNames("o"),
-                frameRate:20,
-                repeat:0
-            });
-
-            this.ttt_o.play("o_clicked");
-
-
-            setTimeout(() => {
+            this.buttonStartPVP = this.add.bitmapText(300,400,"bitmap_font","Jogador contra Jogador",30);
+            this.buttonStartPVP.setInteractive();
+            this.buttonStartPVP.on("pointerdown",()=>{
                 this.scene.start("tictactoe");
-            }, 1500);
+            });
+
+
+            this.buttonStartPVPC = this.add.bitmapText(300,430,"bitmap_font","Jogador contra Computador (Botão desativado)",30);
+            this.buttonStartPVPC.setInteractive();
+            this.buttonStartPVPC.on("pointerdown",()=>{
+                // TODO
+            });
         });
     }
 }
