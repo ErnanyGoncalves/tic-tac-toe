@@ -49,13 +49,13 @@ export default class Endgame extends Phaser.Scene {
         this.buttonRestart = this.add.bitmapText(150, 460, "bitmap_font", "Sim", 30);
         this.buttonRestart.setInteractive();
         this.buttonRestart.on("pointerdown", () => {
-            // TODO - Ver melhor forma para retornar a navegação
+            this.scene.start("tictactoe");
         });
 
         this.buttonMenu = this.add.bitmapText(250, 460, "bitmap_font", "Nao", 30);
         this.buttonMenu.setInteractive();
         this.buttonMenu.on("pointerdown", () => {
-            // TODO - Ver melhor forma para retornar a navegação
+            this.scene.start("menu");
         });
 
     }
