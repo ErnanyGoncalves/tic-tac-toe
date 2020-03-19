@@ -14,8 +14,18 @@ const AssetManifest = {
         "o.png",
         "o.json",
     ],
-    //   bitmapFonts: []
-    //   fonts: []
+    bitmapFonts: [
+        "bitmap_font.png",
+        "bitmap_font.xml"
+    ],   
+    fonts: {
+        google: {
+            families: [
+                "Fredoka One",
+                "Titan One",
+            ]
+        }
+    }
 };
 
 export default AssetManifest;

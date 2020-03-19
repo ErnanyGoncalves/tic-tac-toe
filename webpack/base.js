@@ -22,6 +22,9 @@ module.exports = {
       {
         test: /\.(png|jpg|gif|ico|svg|pvr|pkm|wav|mp3|webm)$/,
         use: ['file-loader?name=assets/[name].[ext]?[hash]'],
+      }, {
+        test: /\.xml$/,
+        loader: 'file-loader'
       }
     ]
   },

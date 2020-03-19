@@ -19,7 +19,7 @@ export default class Menu extends Phaser.Scene {
 
         this.loader.load().then(() => {
 
-            this.add.text(20, 20, "Menu!!!", { font: "25px Arial", fill: "red" });
+            this.add.text(20, 20, "Menu!!!", { font: "25px 'Fredoka One'", fill: "red" });
 
             this.ttt_x = this.add.sprite(200,200,"x");
 
