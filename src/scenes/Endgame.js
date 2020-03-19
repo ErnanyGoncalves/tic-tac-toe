@@ -6,18 +6,8 @@ export default class Endgame extends Phaser.Scene {
     create() {
         this.add.text(20, 20, "THE END");
 
-        // const musicConfig = {
-        //     mute: false,
-        //     volume: 1,
-        //     rate: 1,
-        //     detune: 0,
-        //     seek: 0,
-        //     loop: false,
-        //     delay: 0
-        // };
 
-        this.victorySound = this.sound.add("victory");
-        // this.victorySound.play(musicConfig);
-        this.victorySound.play();
+        // this.victorySound = this.sound.add("victory");
+        // this.victorySound.play();
     }
 }

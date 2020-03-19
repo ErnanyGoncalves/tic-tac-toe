@@ -6,9 +6,14 @@ const AssetManifest = {
         "defeat.mp3",
         "draw.mp3",
         "touch.mp3",
-        "victory.mp3"
+        "victory.mp3",
     ],
-    //   sprites: [],
+    sprites: [
+        "x.png",
+        "x.json",
+        "o.png",
+        "o.json",
+    ],
     //   bitmapFonts: []
     //   fonts: []
 };
