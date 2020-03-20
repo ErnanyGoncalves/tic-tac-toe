@@ -16,7 +16,7 @@ export default class TTT extends Phaser.Scene {
 
         // Inicialização tabuleiro, status de vencedor e numero de jogadas
         this.board = new Board();
-    
+
         this.winner = null;
 
         // Qual jogador vai começar
@@ -38,7 +38,7 @@ export default class TTT extends Phaser.Scene {
         } else {
             this.pHuman = new GameText(this, 60, 70, "Voce", styleO, this.pInfoStatus);
             this.pPC = new GameText(this, 60, 70, "Computador", styleX, !this.pInfoStatus);
-        }      
+        }
 
 
         //Animações
@@ -81,52 +81,36 @@ export default class TTT extends Phaser.Scene {
 
         if (x >= 0 && x < 200) {
             if (y >= 150 && y < 350) {
-                if (!this.board[0]) {
-                    this.makeAPlay(100, 250,0, this.p1First);
-                }
+                if (!this.board.board[0]) this.makeAPlay(100, 250, 0, this.p1First);
 
             } else if (y >= 350 && y < 550) {
-                if (!this.board[3]) {
-                    this.makeAPlay(100, 450, 3, this.p1First);
-                }
+                if (!this.board.board[3]) this.makeAPlay(100, 450, 3, this.p1First);
 
             } else if (y >= 550 && y <= 750) {
-                if (!this.board[6]) {
-                    this.makeAPlay(100, 650, 6, this.p1First);
-                }
+                if (!this.board.board[6]) this.makeAPlay(100, 650, 6, this.p1First);
+
             }
         } else if (x >= 200 && x < 400) {
             if (y >= 150 && y < 350) {
-                if (!this.board[1]) {
-                    this.makeAPlay(300, 250, 1, this.p1First);
-                }
+                if (!this.board.board[1]) this.makeAPlay(300, 250, 1, this.p1First);
 
             } else if (y >= 350 && y < 550) {
-                if (!this.board[4]) {
-                    this.makeAPlay(300, 450, 4, this.p1First);
-                }
+                if (!this.board.board[4]) this.makeAPlay(300, 450, 4, this.p1First);
 
             } else if (y >= 550 && y <= 750) {
-                if (!this.board[7]) {
-                    this.makeAPlay(300, 650, 7, this.p1First);
-                }
+                if (!this.board.board[7]) this.makeAPlay(300, 650, 7, this.p1First);
+
             }
         } else if (x >= 400 && x <= 600) {
             if (y >= 150 && y < 350) {
-                if (!this.board[2]) {
-                    this.makeAPlay(500, 250, 2, this.p1First);
-                }
+                if (!this.board.board[2]) this.makeAPlay(500, 250, 2, this.p1First);
 
             } else if (y >= 350 && y < 550) {
-                if (!this.board[5]) {
-                    this.makeAPlay(500, 450, 5, this.p1First);
-                }
+                if (!this.board.board[5]) this.makeAPlay(500, 450, 5, this.p1First);
+                
+            } else if (y >= 550 && y <= 750)
+                if (!this.board.board[8]) this.makeAPlay(500, 650, 8, this.p1First);
 
-            } else if (y >= 550 && y <= 750) {
-                if (!this.board[8]) {
-                    this.makeAPlay(500, 650, 8, this.p1First);
-                }
-            }
         }
     }
 
@@ -139,11 +123,11 @@ export default class TTT extends Phaser.Scene {
             this.p2.toggleStatus();
         } else {
             this.pHuman.toggleStatus();
-            this.pieceO.toggleStatus();
+            this.pPC.toggleStatus();
         }
     }
 
-    makeAPlay(x, y,pos, turn) {
+    makeAPlay(x, y, pos, turn) {
 
         //Classe do Sprite de Peça
         const piece = new GamePiece(this, x, y, turn);
@@ -159,7 +143,6 @@ export default class TTT extends Phaser.Scene {
         // Troca a vez do jogador
         this.p1First = this.p1First === "x" ? "o" : "x";
 
-        // this.countPlays++;
         this.board.countPlays++;
 
         // Checa possivel vencedor

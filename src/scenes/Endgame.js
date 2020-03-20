@@ -24,19 +24,24 @@ export default class Endgame extends Phaser.Scene {
 
         if (this.winner === "o" && this.gameMode === "pvp") {
             this.endgameText = new GameText(this, 80, 250, "Jogador 1 venceu!", styleVictoryA, true);
-            // this.victorySound.play();
+            this.victorySound.play();
+
         } else if (this.winner === "x" && this.gameMode === "pvp") {
             this.endgameText = new GameText(this, 80, 250, "Jogador 2 venceu!", styleVictoryB, true);
-            // this.victorySound.play();
+            this.victorySound.play();
+
         } else if (this.winner === "o" && this.gameMode === "pvpc") {
             this.endgameText = new GameText(this, 145, 250, "Voce venceu!", styleVictoryA, true);
-            // this.victorySound.play();
+            this.victorySound.play();
+
         } else if (this.winner === "x" && this.gameMode === "pvpc") {
             this.endgameText = new GameText(this, 145, 250, "Voce perdeu!", styleDefeat, true);
-            // this.defeatSound.play();
+            this.defeatSound.play();
+
         } else if (this.winner === "draw") {
             this.endgameText = new GameText(this, 200, 250, "Empate!", styleDraw, true);
-            // this.drawSound.play();
+            this.drawSound.play();
+
         }
 
         this.add.text(180, 370, "Jogar de novo?", { font: "30px 'Titan One'", fill: "blue" });

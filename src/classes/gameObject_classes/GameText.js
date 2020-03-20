@@ -5,7 +5,6 @@ export default class GameText extends Phaser.GameObjects.Text{
         this.visible = visibility;
     }
 
-    // WIP
     toggleStatus(){
         this.visible = !this.visible;
     }
