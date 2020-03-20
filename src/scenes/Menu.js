@@ -36,7 +36,7 @@ export default class Menu extends Phaser.Scene {
             this.buttonStartPVP = this.add.bitmapText(300, 400, "bitmap_font", "Jogador contra Jogador", 30);
             this.buttonStartPVP.setInteractive();
             this.buttonStartPVP.on("pointerdown", () => {
-                this.scene.start("tictactoe");
+                this.scene.start("tictactoe", {mode: "pvp"});
             });
 
 

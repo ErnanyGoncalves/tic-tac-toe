@@ -5,12 +5,20 @@ export default class TTT extends Phaser.Scene {
         super("tictactoe");
     }
 
+    init(data) {
+        this.gameMode = data.mode;
+    }
+
     create() {
+        // console.log("MODO: ",this.gameMode);
 
         this.board = Array(9).fill(null);
         this.winner = null;
+        this.countPlays = 0;
 
         this.p1First = Math.floor(Math.random() * 10 + 1) > 5 ? "o" : "x";
+
+        this.clickSound = this.sound.add("touch");
 
         this.playerTurn = this.add.bitmapText(50, 40, "bitmap_font", "Vez do:", 40);
 
@@ -95,28 +103,41 @@ export default class TTT extends Phaser.Scene {
     }
 
     showPlayer(turn) {
-        if (turn === "o") {
-            this.add.text(60, 70, "Jogador 1", { font: "25px 'Titan One'", fill: "blue" });
-            this.add.text(400, 70, "O", { font: "25px 'Titan One'", fill: "blue" });
-        } else if (turn === "x") {
-            this.add.text(60, 70, "Jogador 2", { font: "25px 'Titan One'", fill: "red" });
-            // this.add.text(60, 70, "Computador", { font: "25px 'Titan One'", fill: "red" });
-            this.add.text(400, 70, "X", { font: "25px 'Titan One'", fill: "red" });
+        if (this.gameMode === "pvp") {
+            if (turn === "o") {                
+                this.p1Label = this.add.text(60, 70, "Jogador 1", { font: "25px 'Titan One'", fill: "blue" });
+                this.oLabel =  this.add.text(400, 70, "O", { font: "25px 'Titan One'", fill: "blue" });
+            } else if (turn === "x") {
+                this.p2Label = this.add.text(60, 70, "Jogador 2", { font: "25px 'Titan One'", fill: "red" });
+                this.xLabel = this.add.text(400, 70, "X", { font: "25px 'Titan One'", fill: "red" });
+            }
+        }else{
+            if (turn === "o") {
+                this.p1Label = this.add.text(60, 70, "Voce", { font: "25px 'Titan One'", fill: "blue" });
+                this.oLabel = this.add.text(400, 70, "O", { font: "25px 'Titan One'", fill: "blue" });
+            } else if (turn === "x") {
+                this.p2Label = this.add.text(60, 70, "Computador", { font: "25px 'Titan One'", fill: "red" });
+                this.xLabel = this.add.text(400, 70, "X", { font: "25px 'Titan One'", fill: "red" });
+            }
         }
     }
 
     makeAPlay(x, y, turn) {
         this.ttt_turn = this.add.sprite(x, y, turn);
+
+        this.clickSound.play();
+
         this.ttt_turn.play(`${turn}_clicked`);
 
         this.p1First = this.p1First === "x" ? "o" : "x";
         this.showPlayer(this.p1First);
-        console.log(this.board);
+
+        this.countPlays++;
 
         this.winner = this.checkEndgame(this.board);
         if (this.winner) {
             console.log("FIM");
-            this.scene.start("endgame");
+            this.scene.start("endgame", { winner: this.winner, mode: this.gameMode });
         }
     }
 
@@ -131,13 +152,16 @@ export default class TTT extends Phaser.Scene {
             [0, 4, 8],
             [2, 4, 6],
         ];
+
         for (let i = 0; i < lines.length; i++) {
             const [a, b, c] = lines[i];
             if (board[a] && board[a] === board[b] && board[a] === board[c]) {
+                console.log(a, b, c);
                 return board[a];
             }
-            return null;
         }
+
+        if (this.countPlays === 9) return "draw";
     }
 
 }

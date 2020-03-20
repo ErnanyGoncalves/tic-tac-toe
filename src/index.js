@@ -12,6 +12,11 @@
 // Acredito que generateFrameNames pega pelo json os "nomes dos arquivos" que compõe o spridesheet e gera os frames
 
 
+
+// Passar informação ao iniciar uma cena
+// https://photonstorm.github.io/phaser3-docs/Phaser.Scenes.SceneManager.html#start__anchor
+
+
 import Phaser from "phaser";
 
 import Menu from "./scenes/Menu";
