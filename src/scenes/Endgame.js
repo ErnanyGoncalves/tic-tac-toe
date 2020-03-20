@@ -1,3 +1,5 @@
+import GameText from "../classes/gameObject_classes/GameText";
+
 export default class Endgame extends Phaser.Scene {
     constructor() {
         super("endgame");
@@ -8,30 +10,33 @@ export default class Endgame extends Phaser.Scene {
         this.winner = data.winner;
     }
 
-
     create() {
+        // Styles para mensagens finais
+        const styleVictoryA =  { font: "50px 'Fredoka One'", fill: "blue" };
+        const styleVictoryB =  { font: "50px 'Fredoka One'", fill: "red" };
+        const styleDefeat = { font: "50px 'Fredoka One'", fill: "red" };
+        const styleDraw = { font: "50px 'Fredoka One'", fill: "gray" };
 
         this.victorySound = this.sound.add("victory");
         this.defeatSound = this.sound.add("defeat");
         this.drawSound = this.sound.add("draw");
 
-
         console.log(this.winner);
 
         if (this.winner === "o" && this.gameMode === "pvp") {
-            this.add.text(80, 250, "Jogador 1 venceu!", { font: "50px 'Fredoka One'", fill: "blue" });
+            this.endgameText = new GameText(this,80,250,"Jogador 1 venceu!", styleVictoryA,true);
             // this.victorySound.play();
         } else if (this.winner === "x" && this.gameMode === "pvp") {
-            this.add.text(80, 250, "Jogador 2 venceu!", { font: "50px 'Fredoka One'", fill: "red" });
+            this.endgameText = new GameText(this,80,250,"Jogador 2 venceu!", styleVictoryB,true);
             // this.victorySound.play();
         } else if (this.winner === "o" && this.gameMode === "pvpc") {
-            this.add.text(150, 250, "Voce venceu!", { font: "50px 'Fredoka One'", fill: "blue" });
+            this.endgameText = new GameText(this,80,250,"Voce venceu!", styleVictoryA,true);
             // this.victorySound.play();
         } else if (this.winner === "x" && this.gameMode === "pvpc") {
-            this.add.text(150, 250, "Voce perdeu!", { font: "50px 'Fredoka One'", fill: "red" });
+            this.endgameText = new GameText(this,150,250,"Voce perdeu!", styleDefeat,true);
             // this.defeatSound.play();
         } else if (this.winner === "draw") {
-            this.add.text(200, 250, "Empate!", { font: "50px 'Fredoka One'", fill: "gray" });
+            this.endgameText = new GameText(this,200,250,"Empate!", styleDraw,true);
             // this.drawSound.play();
         }
 

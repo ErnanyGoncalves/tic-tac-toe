@@ -12,32 +12,36 @@ export default class TTT extends Phaser.Scene {
     }
 
     create() {
+
+        // Qual jogador vai começar
+        this.p1First = Math.floor(Math.random() * 10 + 1) > 5 ? "o" : "x";
+        this.pInfoStatus = this.p1First === "o" ? true : false;
+
+
         // Style para mostrar a vez do jogador
         const styleO = { font: "25px 'Titan One'", fill: "blue" };
         const styleX = { font: "25px 'Titan One'", fill: "red" };
 
         // Criação das informações dos textos referentes as peças e jogadores
-        this.pieceO = new GameText(this, 400, 70, "O", styleO);
-        this.pieceX = new GameText(this, 400, 70, "X", styleX);
+        this.pieceO = new GameText(this, 400, 70, "O", styleO, this.pInfoStatus);
+        this.pieceX = new GameText(this, 400, 70, "X", styleX, !this.pInfoStatus);
 
-        this.p1 = new GameText(this, 60, 70, "Jogador 1", styleO);
-        this.p2 = new GameText(this, 60, 70, "Jogador 2", styleX);
-
-        this.pHuman = new GameText(this, 60, 70, "Voce", styleO);
-        this.pPC = new GameText(this, 60, 70, "Computador", styleX);
-
-
-        // Qual jogador vai começar
-        this.p1First = Math.floor(Math.random() * 10 + 1) > 5 ? "o" : "x";
+        if (this.gameMode === "pvp") {
+            this.p1 = new GameText(this, 60, 70, "Jogador 1", styleO, this.pInfoStatus);
+            this.p2 = new GameText(this, 60, 70, "Jogador 2", styleX, !this.pInfoStatus);
+        } else {
+            this.pHuman = new GameText(this, 60, 70, "Voce", styleO, this.pInfoStatus);
+            this.pPC = new GameText(this, 60, 70, "Computador", styleX, !this.pInfoStatus);
+        }
 
 
-
+        // Inicialização tabuleiro, status de vencedor e numero de jogadas
         this.board = Array(9).fill(null);
         this.winner = null;
         this.countPlays = 0;
 
-        
 
+        //Animações
         this.anims.create({
             key: "o_clicked",
             frames: this.anims.generateFrameNames("o"),
@@ -55,8 +59,6 @@ export default class TTT extends Phaser.Scene {
         this.clickSound = this.sound.add("touch");
 
         this.playerTurn = this.add.bitmapText(50, 40, "bitmap_font", "Vez do:", 40);
-
-        this.showPlayer(this.p1First);
 
         this.input.on('pointerdown', ({ x, y }) => { //pointer.x, pointer,y
             this.checkRegion(x, y);
@@ -136,58 +138,29 @@ export default class TTT extends Phaser.Scene {
         }
     }
 
-    showPlayer(turn) {
+    showPlayerInfo() {
+        this.pieceO.toggleStatus();
+        this.pieceX.toggleStatus();
 
         if (this.gameMode === "pvp") {
-            if (turn === "o") {
-                this.p1.visible = true;
-                this.pieceO.visible = true;
-                this.p2.visible = false;
-                this.pieceX.visible = false;
-                //     this.add.text(60, 70, "Jogador 1", { font: "25px 'Titan One'", fill: "blue" });
-                //     this.add.text(400, 70, "O", { font: "25px 'Titan One'", fill: "blue" });
-            } else if (turn === "x") {
-                this.p1.visible = false;
-                this.pieceO.visible = false;
-                this.p2.visible = true;
-                this.pieceX.visible = true;
-                //     this.add.text(60, 70, "Jogador 2", { font: "25px 'Titan One'", fill: "red" });
-                //     this.add.text(400, 70, "X", { font: "25px 'Titan One'", fill: "red" });
-            }
+            this.p1.toggleStatus();
+            this.p2.toggleStatus();
         } else {
-            if (turn === "o") {
-                this.pHuman.visible = true;
-                this.pieceO.visible = true;
-                this.pPC.visible = false;
-                this.pieceX.visible = false;
-                //     this.add.text(60, 70, "Voce", { font: "25px 'Titan One'", fill: "blue" });
-                //     this.add.text(400, 70, "O", { font: "25px 'Titan One'", fill: "blue" });
-            } else if (turn === "x") {
-                this.pHuman.visible = false;
-                this.pieceO.visible = false;
-                this.pPC.visible = true;
-                this.pieceX.visible = true;
-                //     this.add.text(60, 70, "Computador", { font: "25px 'Titan One'", fill: "red" });
-                //     this.add.text(400, 70, "X", { font: "25px 'Titan One'", fill: "red" });
-            }
+            this.pHuman.toggleStatus();
+            this.pieceO.toggleStatus();
         }
     }
 
     makeAPlay(x, y, turn) {
 
-
         //Classe do Sprite de Peça
         const piece = new GamePiece(this, x, y, turn);
 
-        // ------ Adição e execução da animação do sprite ------ (Acredito que não será mais necessário depois)
-        // this.ttt_turn = this.add.sprite(x, y, turn);
-        // this.ttt_turn.play(`${turn}_clicked`);
-
-
         this.clickSound.play();
 
+        this.showPlayerInfo();
+
         this.p1First = this.p1First === "x" ? "o" : "x";
-        this.showPlayer(this.p1First);
 
         this.countPlays++;
 
