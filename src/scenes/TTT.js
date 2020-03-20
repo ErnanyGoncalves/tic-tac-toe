@@ -1,3 +1,4 @@
+import GamePiece from "../classes/GamePiece";
 
 export default class TTT extends Phaser.Scene {
 
@@ -16,6 +17,20 @@ export default class TTT extends Phaser.Scene {
         this.countPlays = 0;
 
         this.p1First = Math.floor(Math.random() * 10 + 1) > 5 ? "o" : "x";
+
+        this.anims.create({
+            key: "o_clicked",
+            frames: this.anims.generateFrameNames("o"),
+            frameRate: 20,
+            repeat: 0
+        });
+
+        this.anims.create({
+            key: "x_clicked",
+            frames: this.anims.generateFrameNames("x"),
+            frameRate: 20,
+            repeat: 0
+        });
 
         this.clickSound = this.sound.add("touch");
 
@@ -103,14 +118,14 @@ export default class TTT extends Phaser.Scene {
 
     showPlayer(turn) {
         if (this.gameMode === "pvp") {
-            if (turn === "o") {                
+            if (turn === "o") {
                 this.add.text(60, 70, "Jogador 1", { font: "25px 'Titan One'", fill: "blue" });
                 this.add.text(400, 70, "O", { font: "25px 'Titan One'", fill: "blue" });
             } else if (turn === "x") {
                 this.add.text(60, 70, "Jogador 2", { font: "25px 'Titan One'", fill: "red" });
                 this.add.text(400, 70, "X", { font: "25px 'Titan One'", fill: "red" });
             }
-        }else{
+        } else {
             if (turn === "o") {
                 this.add.text(60, 70, "Voce", { font: "25px 'Titan One'", fill: "blue" });
                 this.add.text(400, 70, "O", { font: "25px 'Titan One'", fill: "blue" });
@@ -122,11 +137,18 @@ export default class TTT extends Phaser.Scene {
     }
 
     makeAPlay(x, y, turn) {
-        this.ttt_turn = this.add.sprite(x, y, turn);
 
+
+        //Classe do Sprite de Peça
+        const piece = new GamePiece(this, x, y, turn);
+        
+
+        // ------ Adição e execução da animação do sprite ------ (Acredito que não será mais necessário depois)
+        // this.ttt_turn = this.add.sprite(x, y, turn);
+        // this.ttt_turn.play(`${turn}_clicked`);
+
+        
         this.clickSound.play();
-
-        this.ttt_turn.play(`${turn}_clicked`);
 
         this.p1First = this.p1First === "x" ? "o" : "x";
         this.showPlayer(this.p1First);

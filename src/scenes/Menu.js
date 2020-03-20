@@ -15,20 +15,7 @@ export default class Menu extends Phaser.Scene {
         this.loader.start(AssetManifest);
 
         this.loader.load().then(() => {
-
-            this.anims.create({
-                key: "o_clicked",
-                frames: this.anims.generateFrameNames("o"),
-                frameRate: 20,
-                repeat: 0
-            });
-    
-            this.anims.create({
-                key: "x_clicked",
-                frames: this.anims.generateFrameNames("x"),
-                frameRate: 20,
-                repeat: 0
-            });
+            
 
             this.add.text(120, 250, "Jogo da Velha!", { font: "50px 'Fredoka One'", fill: "red" });
             this.add.text(100, 350, "Escolha o modo de jogo:", { font: "30px 'Titan One'", fill: "blue" });
