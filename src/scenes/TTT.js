@@ -10,7 +10,6 @@ export default class TTT extends Phaser.Scene {
     }
 
     create() {
-        // console.log("MODO: ",this.gameMode);
 
         this.board = Array(9).fill(null);
         this.winner = null;
@@ -105,19 +104,19 @@ export default class TTT extends Phaser.Scene {
     showPlayer(turn) {
         if (this.gameMode === "pvp") {
             if (turn === "o") {                
-                this.p1Label = this.add.text(60, 70, "Jogador 1", { font: "25px 'Titan One'", fill: "blue" });
-                this.oLabel =  this.add.text(400, 70, "O", { font: "25px 'Titan One'", fill: "blue" });
+                this.add.text(60, 70, "Jogador 1", { font: "25px 'Titan One'", fill: "blue" });
+                this.add.text(400, 70, "O", { font: "25px 'Titan One'", fill: "blue" });
             } else if (turn === "x") {
-                this.p2Label = this.add.text(60, 70, "Jogador 2", { font: "25px 'Titan One'", fill: "red" });
-                this.xLabel = this.add.text(400, 70, "X", { font: "25px 'Titan One'", fill: "red" });
+                this.add.text(60, 70, "Jogador 2", { font: "25px 'Titan One'", fill: "red" });
+                this.add.text(400, 70, "X", { font: "25px 'Titan One'", fill: "red" });
             }
         }else{
             if (turn === "o") {
-                this.p1Label = this.add.text(60, 70, "Voce", { font: "25px 'Titan One'", fill: "blue" });
-                this.oLabel = this.add.text(400, 70, "O", { font: "25px 'Titan One'", fill: "blue" });
+                this.add.text(60, 70, "Voce", { font: "25px 'Titan One'", fill: "blue" });
+                this.add.text(400, 70, "O", { font: "25px 'Titan One'", fill: "blue" });
             } else if (turn === "x") {
-                this.p2Label = this.add.text(60, 70, "Computador", { font: "25px 'Titan One'", fill: "red" });
-                this.xLabel = this.add.text(400, 70, "X", { font: "25px 'Titan One'", fill: "red" });
+                this.add.text(60, 70, "Computador", { font: "25px 'Titan One'", fill: "red" });
+                this.add.text(400, 70, "X", { font: "25px 'Titan One'", fill: "red" });
             }
         }
     }
@@ -136,7 +135,6 @@ export default class TTT extends Phaser.Scene {
 
         this.winner = this.checkEndgame(this.board);
         if (this.winner) {
-            console.log("FIM");
             this.scene.start("endgame", { winner: this.winner, mode: this.gameMode });
         }
     }
@@ -156,7 +154,6 @@ export default class TTT extends Phaser.Scene {
         for (let i = 0; i < lines.length; i++) {
             const [a, b, c] = lines[i];
             if (board[a] && board[a] === board[b] && board[a] === board[c]) {
-                console.log(a, b, c);
                 return board[a];
             }
         }

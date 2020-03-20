@@ -30,20 +30,20 @@ export default class Menu extends Phaser.Scene {
                 repeat: 0
             });
 
-            this.add.text(150, 250, "Jogo da Velha!", { font: "50px 'Fredoka One'", fill: "red" });
-            this.add.text(150, 350, "Escolha o modo de jogo:", { font: "30px 'Titan One'", fill: "blue" });
+            this.add.text(120, 250, "Jogo da Velha!", { font: "50px 'Fredoka One'", fill: "red" });
+            this.add.text(100, 350, "Escolha o modo de jogo:", { font: "30px 'Titan One'", fill: "blue" });
 
-            this.buttonStartPVP = this.add.bitmapText(300, 400, "bitmap_font", "Jogador contra Jogador", 30);
+            this.buttonStartPVP = this.add.bitmapText(150, 420, "bitmap_font", "Jogador contra Jogador", 30);
             this.buttonStartPVP.setInteractive();
             this.buttonStartPVP.on("pointerdown", () => {
                 this.scene.start("tictactoe", {mode: "pvp"});
             });
 
 
-            this.buttonStartPVPC = this.add.bitmapText(300, 430, "bitmap_font", "Jogador contra Computador (Botão desativado)", 30);
+            this.buttonStartPVPC = this.add.bitmapText(130, 460, "bitmap_font", "Jogador contra Computador", 30);
             this.buttonStartPVPC.setInteractive();
             this.buttonStartPVPC.on("pointerdown", () => {
-                // TODO
+                // this.scene.start("tictactoe", {mode: "pvpc"});
             });
         });
     }
