@@ -25,7 +25,11 @@ import Endgame from "./scenes/Endgame";
 
 const config = {
   type: Phaser.AUTO,
+  // width: window.innerWidth,
   width: 600,
+  mode: Phaser.Scale.FIT,
+  autoCenter: Phaser.Scale.CENTER_BOTH,
+  // height: window.innerHeight,
   height: 750,
   backgroundColor: "0x000000",
   scene: [Menu, TTT, Endgame]
