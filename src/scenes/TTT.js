@@ -73,6 +73,16 @@ export default class TTT extends Phaser.Scene {
         this.add.image(0, 0, 'board').setOrigin(0, -0.25);
     }
 
+    update(){
+        if(this.playerFirst.piece ==="x"){
+            setTimeout(()=>{
+                const bestPos = this.playerX.minimax(this.board.board,"x").index;
+                console.log(bestPos);
+                this.makeAPlay(bestPos);
+            },500);
+        }
+    }
+
 
     _getNextPlayer() {
         return this.playerFirst === this.playerX ? this.playerO : this.playerX;
@@ -95,6 +105,8 @@ export default class TTT extends Phaser.Scene {
             [100, 650], [300, 650], [500, 650]
         ];
 
+        console.log(boardPosCoordinates[pos][0], boardPosCoordinates[pos][1], this.playerFirst.piece);
+
         //Classe do Sprite de Peça
         const piece = new GamePiece(this, boardPosCoordinates[pos][0], boardPosCoordinates[pos][1], this.playerFirst.piece);
 
@@ -107,7 +119,8 @@ export default class TTT extends Phaser.Scene {
         this.showPlayerInfo();
 
         // Troca a vez do jogador
-        this.playerFirst = this._getNextPlayer();
+        // this.playerFirst = this._getNextPlayer();
+        this.playerFirst = this.playerFirst === this.playerX ? this.playerO : this.playerX;
 
         this.board.countPlays++;
 
