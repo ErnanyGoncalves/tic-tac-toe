@@ -66,8 +66,16 @@ export default class TTT extends Phaser.Scene {
             // Verifica a região que foi clicada para então colocar uma peça no tabuleiro
             this.input.on('pointerdown', ({ x, y }) => {
                 this.checkRegion(x, y);
+                if (this.gameMode === "pvpc") {
+                    setTimeout(() => {
+                        this.bestSpot = this.minimax(this.board.board, "x");
+                        this.makeAPlay(this.bestSpot.index);
+                        // console.log("index: " + this.bestSpot.index);
+                        // console.log("function calls: " + this.fc);
+                    }, 500);
+                }
             });
-        } else if (this.p1First === "x" && this.gameMode === "pvpc") {
+        } else {
             setTimeout(() => {
                 this.bestSpot = this.minimax(this.board.board, "x");
                 this.makeAPlay(this.bestSpot.index);
