@@ -1,4 +1,4 @@
-import GameText from "../classes/gameObject_classes/GameText";
+import GameText from "../classes/gameObject/GameText";
 
 export default class Endgame extends Phaser.Scene {
     constructor() {
