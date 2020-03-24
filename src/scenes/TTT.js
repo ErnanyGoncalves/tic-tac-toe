@@ -30,8 +30,6 @@ export default class TTT extends Phaser.Scene {
         this.playerFirst = Math.floor(Math.random() * 10 + 1) > 5 ? this.playerO : this.playerX;
         this.playerInfoStatus = this.playerFirst.piece === "o" ? true : false;
 
-
-
         // Style para mostrar a vez do jogador
         const styleO = { font: "25px 'Titan One'", fill: "blue" };
         const styleX = { font: "25px 'Titan One'", fill: "red" };
@@ -45,7 +43,13 @@ export default class TTT extends Phaser.Scene {
             this.p2 = new GameText(this, 60, 70, "Jogador 2", styleX, !this.playerInfoStatus);
         } else {
             this.p1 = new GameText(this, 60, 70, "Voce", styleO, this.playerInfoStatus);
-            this.p2 = new GameText(this, 60, 70, "Computador", styleX, !this.playerInfoStatus);
+            if (this.aiLevel === "easy") {
+                this.p2 = new GameText(this, 60, 70, "Computador (Facil)", styleX, !this.playerInfoStatus);
+            } else if (this.aiLevel === "normal") {
+                this.p2 = new GameText(this, 60, 70, "Computador (Normal)", styleX, !this.playerInfoStatus);
+            } else {
+                this.p2 = new GameText(this, 60, 70, "Computador (Dificil)", styleX, !this.playerInfoStatus);
+            }
         }
 
         //Animações
@@ -70,7 +74,7 @@ export default class TTT extends Phaser.Scene {
                 const space = this.playerO.checkRegion(this.board.board, x, y);
                 if (space !== "taken") {
                     this.makeAPlay(space);
-                    if (this.gameMode === "pvpc" && this.playerFirst.piece === "x") {
+                    if ((this.winner !== "o" && this.winner !== "x" && this.winner !== "draw") && this.gameMode === "pvpc" && this.playerFirst.piece === "x") {
                         this.aiPlays();
                     }
                 }
@@ -78,6 +82,7 @@ export default class TTT extends Phaser.Scene {
         });
 
         if (this.gameMode === "pvpc" && this.playerFirst.piece === "x") {
+            console.log("HeLLOW");
             this.aiPlays();
         }
 
@@ -86,8 +91,9 @@ export default class TTT extends Phaser.Scene {
 
 
     aiPlays() {
+        console.log(this.board.countPlays ,this.winner,this.aiLevel);
         setTimeout(() => {
-            if (this.board.countPlays < 9) {
+            if (this.board.countPlays < 9 && (this.winner !== "o" && this.winner !== "x" && this.winner !== "draw")) {
                 if (this.aiLevel === "easy") {
                     const randomPos = this.playerX.randomPosition(this.board.board);
                     this.makeAPlay(randomPos);
@@ -100,7 +106,6 @@ export default class TTT extends Phaser.Scene {
                     this.makeAPlay(pos);
                 }
             }
-
         }, 500);
     }
 
@@ -124,8 +129,6 @@ export default class TTT extends Phaser.Scene {
             [100, 450], [300, 450], [500, 450],
             [100, 650], [300, 650], [500, 650]
         ];
-
-        console.log(boardPosCoordinates[pos][0], boardPosCoordinates[pos][1], this.playerFirst.piece);
 
         //Classe do Sprite de Peça
         const piece = new GamePiece(this, boardPosCoordinates[pos][0], boardPosCoordinates[pos][1], this.playerFirst.piece);
