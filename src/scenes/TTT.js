@@ -30,6 +30,7 @@ export default class TTT extends Phaser.Scene {
         this.playerInfoStatus = this.playerFirst.piece === "o" ? true : false;
 
 
+
         // Style para mostrar a vez do jogador
         const styleO = { font: "25px 'Titan One'", fill: "blue" };
         const styleX = { font: "25px 'Titan One'", fill: "red" };
@@ -64,25 +65,31 @@ export default class TTT extends Phaser.Scene {
         this.playerTurn = this.add.bitmapText(50, 40, "bitmap_font", "Vez do:", 40);
 
         this.input.on('pointerdown', ({ x, y }) => {
-            const space = this.playerO.checkRegion(this.board.board, x, y);
-            if (space !== "taken") {
-                this.makeAPlay(space);
+            if (this.playerFirst.piece === "o" || this.gameMode === "pvp") {
+                const space = this.playerO.checkRegion(this.board.board, x, y);
+                if (space !== "taken") {
+                    this.makeAPlay(space);
+                    if (this.gameMode === "pvpc" && this.playerFirst.piece === "x") {
+                        this.iaPlays();
+                    }
+                }
             }
         });
+
+        if (this.gameMode === "pvpc" && this.playerFirst.piece === "x") {
+            this.iaPlays();
+        }
 
         this.add.image(0, 0, 'board').setOrigin(0, -0.25);
     }
 
-    update(){
-        if(this.playerFirst.piece ==="x"){
-            setTimeout(()=>{
-                const bestPos = this.playerX.minimax(this.board.board,"x").index;
-                console.log(bestPos);
-                this.makeAPlay(bestPos);
-            },500);
-        }
-    }
 
+    iaPlays() {
+        setTimeout(() => {
+            const bestPos = this.playerX.minimax(this.board.board, "x").index;
+            this.makeAPlay(bestPos);
+        }, 500);
+    }
 
     _getNextPlayer() {
         return this.playerFirst === this.playerX ? this.playerO : this.playerX;

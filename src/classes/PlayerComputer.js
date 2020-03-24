@@ -9,7 +9,7 @@ export default class PlayerComputer extends Player {
         this.fc++;
 
         let availableSpots = this.openSpaces(board);
-
+        
         // checks for the terminal states such as win, lose, and tie and returning a value accordingly
         if (this.winning(board, "o")) {
             return { score: -10 };
@@ -26,7 +26,7 @@ export default class PlayerComputer extends Player {
         for (let i = 0; i < availableSpots.length; i++) {
             //create an object for each and store the index of that spot that was stored as a number in the object's index key
             let move = {};
-            move.index = availableSpots[i];
+            move.index = board[availableSpots[i]];
 
             // set the empty spot to the current player
             board[availableSpots[i]] = player;
@@ -76,7 +76,7 @@ export default class PlayerComputer extends Player {
     }
 
     openSpaces(board) {
-        return board.map((value, index) => (value === "o" || value === "x") ? value : index).filter(value => value !== "o" && value !== "x");
+        return board.filter(value => value !== "o" && value !== "x");
     }
 
 

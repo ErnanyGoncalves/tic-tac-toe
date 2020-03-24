@@ -1,6 +1,6 @@
 export default class Board{
     constructor(){
-        this.board = Array(9).fill(null);
+        this.board = [0,1,2,3,4,5,6,7,8];
         this.countPlays = 0;
     }
 

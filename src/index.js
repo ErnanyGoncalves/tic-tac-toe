@@ -16,6 +16,9 @@
 // https://photonstorm.github.io/phaser3-docs/Phaser.Scenes.SceneManager.html#start__anchor
 
 
+// Minimax
+// https://codepen.io/abdolsa/pen/mABGoz?editors=0012
+
 import Phaser from "phaser";
 
 import Menu from "./scenes/Menu";
