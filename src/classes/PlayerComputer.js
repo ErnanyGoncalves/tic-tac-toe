@@ -5,11 +5,22 @@ export default class PlayerComputer extends Player {
         this.fc = 0;
     }
 
+    randomPosition(board) {
+        let randomPos = Math.floor(Math.random() * 9);
+        while (1) {
+            if (Number.isInteger(board[randomPos])) {
+                return randomPos;
+            } else {
+                randomPos = Math.floor(Math.random() * 9);
+            }
+        }
+    }
+
     minimax(board, player) {
         this.fc++;
 
         let availableSpots = this.openSpaces(board);
-        
+
         // checks for the terminal states such as win, lose, and tie and returning a value accordingly
         if (this.winning(board, "o")) {
             return { score: -10 };

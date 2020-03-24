@@ -24,10 +24,22 @@ export default class Menu extends Phaser.Scene {
             });
 
 
-            this.buttonStartPVPC = this.add.bitmapText(130, 460, "bitmap_font", "Jogador contra Computador", 30);
+            this.buttonStartPVPC = this.add.bitmapText(100, 460, "bitmap_font", "Jogador contra Computador (Facil)", 30);
             this.buttonStartPVPC.setInteractive();
             this.buttonStartPVPC.on("pointerdown", () => {
-                this.scene.start("tictactoe", { mode: "pvpc" });
+                this.scene.start("tictactoe", { mode: "pvpc", dificulty: "easy" });                
+            });
+
+            this.buttonStartPVPC = this.add.bitmapText(85, 500, "bitmap_font", "Jogador contra Computador (Normal)", 30);
+            this.buttonStartPVPC.setInteractive();
+            this.buttonStartPVPC.on("pointerdown", () => {
+                this.scene.start("tictactoe", { mode: "pvpc", dificulty: "normal" });
+            });
+
+            this.buttonStartPVPC = this.add.bitmapText(95, 540, "bitmap_font", "Jogador contra Computador (Dificil)", 30);
+            this.buttonStartPVPC.setInteractive();
+            this.buttonStartPVPC.on("pointerdown", () => {
+                this.scene.start("tictactoe", { mode: "pvpc", dificulty: "hard" });
             });
         });
     }

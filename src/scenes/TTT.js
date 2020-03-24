@@ -14,6 +14,7 @@ export default class TTT extends Phaser.Scene {
 
     init(data) {
         this.gameMode = data.mode;
+        this.aiLevel = data.dificulty;
     }
 
     create() {
@@ -70,24 +71,36 @@ export default class TTT extends Phaser.Scene {
                 if (space !== "taken") {
                     this.makeAPlay(space);
                     if (this.gameMode === "pvpc" && this.playerFirst.piece === "x") {
-                        this.iaPlays();
+                        this.aiPlays();
                     }
                 }
             }
         });
 
         if (this.gameMode === "pvpc" && this.playerFirst.piece === "x") {
-            this.iaPlays();
+            this.aiPlays();
         }
 
         this.add.image(0, 0, 'board').setOrigin(0, -0.25);
     }
 
 
-    iaPlays() {
+    aiPlays() {
         setTimeout(() => {
-            const bestPos = this.playerX.minimax(this.board.board, "x").index;
-            this.makeAPlay(bestPos);
+            if (this.board.countPlays < 9) {
+                if (this.aiLevel === "easy") {
+                    const randomPos = this.playerX.randomPosition(this.board.board);
+                    this.makeAPlay(randomPos);
+                } else if (this.aiLevel === "hard") {
+                    const bestPos = this.playerX.minimax(this.board.board, "x").index;
+                    this.makeAPlay(bestPos);
+                } else {
+                    const easyProbability = 0.6;
+                    const pos = Math.random() < easyProbability ? this.playerX.randomPosition(this.board.board) : this.playerX.minimax(this.board.board, "x").index;
+                    this.makeAPlay(pos);
+                }
+            }
+
         }, 500);
     }
 
