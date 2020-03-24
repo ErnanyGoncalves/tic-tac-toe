@@ -19,6 +19,9 @@
 // Minimax
 // https://codepen.io/abdolsa/pen/mABGoz?editors=0012
 
+//Responsividade
+// https://www.html5gamedevs.com/topic/41344-phaser-3-show_all-responsive-example/
+
 import Phaser from "phaser";
 
 import Menu from "./scenes/Menu";
@@ -34,6 +37,8 @@ const config = {
   autoCenter: Phaser.Scale.CENTER_BOTH,
   // height: window.innerHeight,
   height: 750,
+  autoCenter:1,
+  scaleMode:3,
   backgroundColor: "0x000000",
   scene: [Menu, TTT, Endgame]
 };
