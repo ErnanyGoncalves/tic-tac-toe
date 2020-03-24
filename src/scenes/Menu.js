@@ -13,7 +13,24 @@ export default class Menu extends Phaser.Scene {
     create() {
         this.loader.start(AssetManifest);
 
+
+
         this.loader.load().then(() => {
+
+            //Animações
+            this.anims.create({
+                key: "o_clicked",
+                frames: this.anims.generateFrameNames("o"),
+                frameRate: 20,
+                repeat: 0
+            });
+            this.anims.create({
+                key: "x_clicked",
+                frames: this.anims.generateFrameNames("x"),
+                frameRate: 20,
+                repeat: 0
+            });
+
             this.add.text(120, 250, "Jogo da Velha!", { font: "50px 'Fredoka One'", fill: "red" });
             this.add.text(100, 350, "Escolha o modo de jogo:", { font: "30px 'Titan One'", fill: "blue" });
 
@@ -27,7 +44,7 @@ export default class Menu extends Phaser.Scene {
             this.buttonStartPVPC = this.add.bitmapText(100, 460, "bitmap_font", "Jogador contra Computador (Facil)", 30);
             this.buttonStartPVPC.setInteractive();
             this.buttonStartPVPC.on("pointerdown", () => {
-                this.scene.start("tictactoe", { mode: "pvpc", dificulty: "easy" });                
+                this.scene.start("tictactoe", { mode: "pvpc", dificulty: "easy" });
             });
 
             this.buttonStartPVPC = this.add.bitmapText(85, 500, "bitmap_font", "Jogador contra Computador (Normal)", 30);

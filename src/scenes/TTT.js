@@ -52,19 +52,6 @@ export default class TTT extends Phaser.Scene {
             }
         }
 
-        //Animações
-        this.anims.create({
-            key: "o_clicked",
-            frames: this.anims.generateFrameNames("o"),
-            frameRate: 20,
-            repeat: 0
-        });
-        this.anims.create({
-            key: "x_clicked",
-            frames: this.anims.generateFrameNames("x"),
-            frameRate: 20,
-            repeat: 0
-        });
 
         this.clickSound = this.sound.add("touch");
         this.playerTurn = this.add.bitmapText(50, 40, "bitmap_font", "Vez do:", 40);
